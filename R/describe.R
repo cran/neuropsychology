@@ -1,22 +1,15 @@
-# describe_beta <- function(df, var, by=NULL){
-#   print("WARNING: FUNCTION NOT WORKING FOR NOW")
-#   if (is.null(by)==FALSE){
-#     print('1')
-#     description <- df %>%
-#       group_by(parse(by)) %>%
-#       summarize(
-#         mean = mean(df[var], na.rm=TRUE),
-#         sd = sd(df[var], na.rm=TRUE)
-#       )
-#   }
-#   else {
-#     print('2')
-#     description <- data.frame(mean = mean(df[var], na.rm=TRUE),
-#                               sd = sd(df[var], na.rm=TRUE))
-#   }
-#   return(description)
-# }
-#
-#
-# describe(df, "BMI")
-# describe(df, "BMI", "Sex")
+describe <- function(df, group=NA){
+
+  if(is.na(group)==FALSE){
+    df.list <- split(df, df[group])
+
+    n=1
+    for (i in df.list){
+      i <- i[ , !(names(i) %in% group)]
+      print(prettyR::describe(i, xname=levels(df[,group])[n]))
+      n=n+1
+      }
+  } else{
+    print(prettyR::describe(df, horizontal=FALSE))
+  }
+  }
