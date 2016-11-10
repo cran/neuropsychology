@@ -1,24 +1,39 @@
 # neuropsychology
 An R Toolbox for Psychologists, Neuropsychologists and Neuroscientists
 
+<p align="left">
+<a href="https://github.com/neuropsychology/neuropsychology.R/blob/master/README.md#compare-a-patients-score-with-the-parent-population">
+<img src="https://github.com/neuropsychology/neuropsychology.R/blob/master/tests/testthat/assess_plot.png" height="150"></a>
+<a href="https://github.com/neuropsychology/neuropsychology.R/blob/master/README.md#create-a-braincloud">
+<img src="https://github.com/neuropsychology/neuropsychology.R/blob/master/tests/testthat/braincloud1.png" height="150"></a>
+<a href="https://github.com/neuropsychology/neuropsychology.R/blob/master/README.md#get-a-correlation-plot-and-table-with-significance-stars">
+<img src="https://github.com/neuropsychology/neuropsychology.R/blob/master/tests/testthat/cortable_plot.png" height="150"></a>
+<a href="https://github.com/neuropsychology/neuropsychology.R/blob/master/README.md#create-a-braincloud">
+<img src="https://github.com/neuropsychology/neuropsychology.R/blob/master/tests/testthat/braincloud2.png" height="150"></a>
+</p>
+
+
 |Name|neuropsychology|
 |----------------|---|
-|Status|![](https://img.shields.io/badge/status-stable-brightgreen.svg)|
-|Latest Version|![](https://img.shields.io/badge/version-0.2.4-brightgreen.svg)|
-|Authors|Dominique Makowski|
-|CRAN|https://CRAN.R-project.org/package=neuropsychology|
-|Manual|https://cran.r-project.org/web/packages/neuropsychology/neuropsychology.pdf|
+|Status|![](https://travis-ci.org/neuropsychology/neuropsychology.R.svg?branch=master)|
+|Stable Version|[![](https://img.shields.io/badge/version-0.2.4-brightgreen.svg?colorB=CDDC39)](https://CRAN.R-project.org/package=neuropsychology)|
+|Latest Version|[![](https://img.shields.io/badge/version-0.3.0-brightgreen.svg)](https://github.com/neuropsychology/neuropsychology.R)|
+|Documentation|[![Rdoc](http://www.rdocumentation.org/badges/version/neuropsychology)](http://www.rdocumentation.org/packages/neuropsychology)|
+|Downloads|[![](http://cranlogs.r-pkg.org/badges/neuropsychology)](http://www.r-pkg.org/pkg/neuropsychology)|
+|Authors|[![](https://img.shields.io/badge/CV-D.Makowski-purple.svg?colorB=9C27B0)](https://github.com/neuropsychology/Organization/blob/master/CVs/DominiqueMakowski.pdf)|
+
+
 ---
 ## Installation
 
-- To get the stable version (`0.1.0`) From CRAN, run the following commands in your R console:
+- To get the stable version (`0.2.4`) From CRAN, run the following commands in your R console:
 
 ```R
 install.packages("neuropsychology")
 library("neuropsychology")
 ```
 
-- To get the latest development version (`0.2.4`), run the following:
+- To get the latest development version (`0.3.0`), run the following:
 
 ```R
 install.packages("devtools")
@@ -41,6 +56,20 @@ Available datasets are:
 - personality
 
 See the description of each dataset by typing `?nameofthedataset` (e.g., `?personality`) in the console.
+
+### Create a braincloud
+First, create a folder with several PDFs (journal articles for example, but you can also use your own specific word list). Add an R script in it and run one of the following:
+```R
+braincloud()
+braincloud(image="brain1", text.size=0.6, colours.replicate=FALSE)
+```
+
+<p align="left">
+<img src="https://github.com/neuropsychology/neuropsychology.R/blob/master/tests/testthat/braincloud1.png" width="400">
+<img src="https://github.com/neuropsychology/neuropsychology.R/blob/master/tests/testthat/braincloud2.png" width="400">
+</p>
+
+*Note: these brainclouds are based on the work of [Dr. Robin Carhart-Harris](http://www.imperial.ac.uk/people/r.carhart-harris).*
 
 ### Compare a patient's score with the parent population
 Your patient has an IQ of 78. What does it mean? You'd like to insert a plot in your report? Use the `assess()` fucntion, that compares your patient's score with the mean and standard deviation of your test (for the IQ, 100 and 15, respecetively).
@@ -68,11 +97,16 @@ ggsave("assess_plot.png", plot)
 ### Get a correlation plot and table with significance stars
 ```R
 cortable(personality)
+
+write.csv(cortable(personality), "mytable.csv") # Save the table
+ggsave("corplot.png", cortable(personality)) # Save the plot
 ```
 This function will automatically select the numeric columns of your dataframe and show a correlation table with significance stars.
 You can adjust the p value by applying different corrections or change the type of correlation type (Spearman's or Pearson's). You can also view the result in RStudio or save it as a .csv file to open it in excel. Run `?cortable` for documentation.
 
-<p align="left"><img src="https://github.com/neuropsychology/neuropsychology.R/blob/master/tests/testthat/cortable_plot.png" width="700"></p>
+<p align="left"><img src="https://github.com/neuropsychology/neuropsychology.R/blob/master/tests/testthat/cortable_plot.png" width="700">
+<img src="https://github.com/neuropsychology/neuropsychology.R/blob/master/tests/testthat/cortable.png" width="850">
+</p>
 
 ### Describe a dataframe
 ```R
@@ -103,20 +137,16 @@ Negative_Affect 2.65   2.60 1.74 1.32     245
 Extraversion    3.27   3.25 2.30 1.52     245
 ```
 
-### A brain- or head-shaped wordcloud
-First, create a folder with several PDFs (journal articles for example, but you can also use your own specific word list). Add an R script in it and run the following code.
-```R
-braincloud()
-```
 
-<p align="left"><img src="https://github.com/neuropsychology/neuropsychology.R/blob/master/tests/testthat/braincloud.png" width="700"></p>
 
 
 ---
 ## Contribute
-Want to add features? Correct bugs? You're more than welcome to contribute :)
-
-Check this tutorial ([French](https://github.com/neuropsychology/Courses/blob/master/Programing/Github/Contribute-FR.md) or [English](https://github.com/neuropsychology/Courses/blob/master/Programing/Github/Contribute-EN.md)) to see how to submit your changes on github.
+- You need some help? You found a bug? You would like to request a new feature? 
+  Just open an [issue](https://github.com/neuropsychology/neuropsychology.R/issues) :relaxed:
+- Want to add yourself a feature? Correct a bug? You're more than welcome to contribute!
+  Check this tutorial ([French](https://github.com/neuropsychology/Courses/blob/master/Programing/Github/Contribute-FR.md) or [English](https://github.com/neuropsychology/Courses/blob/master/Programing/Github/Contribute-EN.md)) to see how to submit your changes on github.
+- Check [this style guide](http://handsondatascience.com/StyleO.pdf) to write R code with style.
 
 ---
 ## Citation
@@ -125,3 +155,4 @@ Run the following commands to see the proper citation entry in APA6 or Bibtex fo
 library("neuropsychology")
 citation("neuropsychology")
 ```
+*Note: The authors do not give any warranty. If this software causes your keyboard to blow up, your brain to liquefy, your toilet to clog or a zombie plague to leak, the authors CANNOT IN ANY WAY be held responsible.*
