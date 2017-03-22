@@ -1,13 +1,11 @@
 cortable <- function(df,
+                     returns="both",
                      correction="holm",
                      type="pearson",
-                     returns="table",
-                     print.result=TRUE,
-                     plot.result=TRUE,
                      iamaboringperson=FALSE){
 
   type <- ifelse(type == "s", "spearman",
-                 ifelse(type == "spearman", "spearman","pearson"))
+                 ifelse(type == "spearman", "spearman", type))
 
   correction_text <- ifelse(correction=="holm", "Holm-Bonferroni",
                             ifelse(correction=="fdr", "False Discovery Rate",correction))
@@ -26,18 +24,22 @@ Cheers.")
   df$Gods_Desctrutive_Power <- runif(nrow(df), max=10)
     }
 
-  for (i in names(df)){
-    if (is.numeric(df[,i]) == FALSE){
-      df[,i] = NULL
-    }
-  }
+  # Remove non numeric
+  df <- df[ , sapply(df, is.numeric)]
+  
   dimnames <- names(df)
   df <- as.matrix(df)
 
 
-
-  R <- rcorr(df, type = type)$r
-  p <- rcorr(df, type = type)$P
+  if (type!="partial"){
+    R_raw <- rcorr(df, type = type)$r
+    p <- rcorr(df, type = type)$P
+  } else {
+    R_raw <- pcor(df)$estimate
+    p <- pcor(df)$p.value
+  }
+  
+  R <- R_raw
   p <- p.adjust(p, method = correction)
   p.mat <- matrix(p, ncol = ncol(R), dimnames = list(dimnames,dimnames))
 
@@ -61,12 +63,8 @@ Cheers.")
   ## remove last column and return the matrix (which is now a data frame)
   table <- cbind(table[1:length(table)-1])
 
-  if (print.result==TRUE){
-    print(paste("A ", type, "'s correlation matrix (correction: ", correction_text, ")", sep = ""))
-    print(table)
-  }
 
-  plot <- ggcorrplot::ggcorrplot(rcorr(df, type = type)$r,
+  plot <- ggcorrplot::ggcorrplot(R_raw,
                      title = paste("A ", type, "'s correlation matrix (correction: ", correction_text, ")\n", sep = ""),
                      method = "circle",
                      type="lower",
@@ -78,14 +76,13 @@ Cheers.")
                      lab=FALSE) +
     theme(plot.title = element_text(hjust = 0.7))
 
-  if (plot.result==TRUE){
-    print(plot)
-  }
+
 
   if (returns=="table"){
     return(table)
-  }
-  else{
+  } else if (returns=="plot"){
     return(plot)
+  } else {
+    return(list("table"=table, "plot"=plot))
   }
 }

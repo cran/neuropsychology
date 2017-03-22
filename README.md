@@ -1,5 +1,5 @@
 # neuropsychology
-An R Toolbox for Psychologists, Neuropsychologists and Neuroscientists
+An R Toolbox for Psychologists, Neuropsychologists and Neuroscientists.
 
 <p align="left">
 <a href="https://github.com/neuropsychology/neuropsychology.R/blob/master/README.md#compare-a-patients-score-with-the-parent-population">
@@ -12,28 +12,32 @@ An R Toolbox for Psychologists, Neuropsychologists and Neuroscientists
 <img src="https://github.com/neuropsychology/neuropsychology.R/blob/master/tests/testthat/braincloud2.png" height="150"></a>
 </p>
 
-
+<!---
 |Name|neuropsychology|
 |----------------|---|
 |Status|![](https://travis-ci.org/neuropsychology/neuropsychology.R.svg?branch=master)|
-|Stable Version|[![](https://img.shields.io/badge/version-0.2.4-brightgreen.svg?colorB=CDDC39)](https://CRAN.R-project.org/package=neuropsychology)|
-|Latest Version|[![](https://img.shields.io/badge/version-0.3.0-brightgreen.svg)](https://github.com/neuropsychology/neuropsychology.R)|
+-->
+|Name|neuropsychology|
+|----------------|---|
+|Stable Version|[![](https://img.shields.io/badge/version-0.3.0-brightgreen.svg)](https://CRAN.R-project.org/package=neuropsychology)|
+|Latest Version|[![](https://img.shields.io/badge/version-0.5.0-brightgreen.svg)](https://github.com/neuropsychology/neuropsychology.R)|
 |Documentation|[![Rdoc](http://www.rdocumentation.org/badges/version/neuropsychology)](http://www.rdocumentation.org/packages/neuropsychology)|
 |Downloads|[![](http://cranlogs.r-pkg.org/badges/neuropsychology)](http://www.r-pkg.org/pkg/neuropsychology)|
-|Authors|[![](https://img.shields.io/badge/CV-D.Makowski-purple.svg?colorB=9C27B0)](https://github.com/neuropsychology/Organization/blob/master/CVs/DominiqueMakowski.pdf)|
+|Authors|[![](https://img.shields.io/badge/CV-D._Makowski-purple.svg?colorB=9C27B0)](https://cdn.rawgit.com/neuropsychology/Organization/master/CVs/DominiqueMakowski.pdf)|
 
 
 ---
 ## Installation
 
-- To get the stable version (`0.2.4`) From CRAN, run the following commands in your R console:
+- To get the stable version (`0.3.0`) From CRAN, run the following commands in your R console:
 
 ```R
 install.packages("neuropsychology")
 library("neuropsychology")
 ```
 
-- To get the latest development version (`0.3.0`), run the following:
+
+- To get the latest development version (`0.5.0`), run the following:
 
 ```R
 install.packages("devtools")
@@ -42,23 +46,26 @@ install_github("neuropsychology/neuropsychology.R")
 library("neuropsychology")
 ```
 
-If it doesn't work, try [updating R](https://www.google.fr/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=update%20r).
+If it doesn't work, try [updating R](https://www.google.fr/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=update%20r). If the problem persists, create an [issue](https://github.com/neuropsychology/neuropsychology.R/issues).
 
 
 ---
 ## Feature Examples
 
+<!---
 ### Use a data set
 ```R
 df <- personality
 ```
 Available datasets are:
 - personality
+- ASQ
 
 See the description of each dataset by typing `?nameofthedataset` (e.g., `?personality`) in the console.
+-->
 
 ### Create a braincloud
-First, create a folder with several PDFs (journal articles for example, but you can also use your own specific word list). Add an R script in it and run one of the following:
+A wordcloud containing the most reccurent words of one or several papers. First, create a folder with several PDFs (journal articles for example, but you can also use your own specific word list). Add an R script in it and run one of the following:
 ```R
 braincloud()
 braincloud(image="brain1", text.size=0.6, colours.replicate=FALSE)
@@ -102,40 +109,11 @@ write.csv(cortable(personality), "mytable.csv") # Save the table
 ggsave("corplot.png", cortable(personality)) # Save the plot
 ```
 This function will automatically select the numeric columns of your dataframe and show a correlation table with significance stars.
-You can adjust the p value by applying different corrections or change the type of correlation type (Spearman's or Pearson's). You can also view the result in RStudio or save it as a .csv file to open it in excel. Run `?cortable` for documentation.
+You can adjust the p value by applying different corrections or change the type of correlation type (Spearman's, Pearson's or partial correlations). You can also view the result in RStudio or save it as a .csv file to open it in excel. Run `?cortable` for documentation.
 
 <p align="left"><img src="https://github.com/neuropsychology/neuropsychology.R/blob/master/tests/testthat/cortable_plot.png" width="700">
 <img src="https://github.com/neuropsychology/neuropsychology.R/blob/master/tests/testthat/cortable.png" width="850">
 </p>
-
-### Describe a dataframe
-```R
-describe(personality)
-```
-This function prints a nice summary of your dataframe. Note that you can also group the descriptions by a factor using the "group" argument. See `?describe` for more documentation.
-
-You can also pipe the selection and filtering process using the power of dplyr:
-```R
-personality %>%
-  filter(Mood_Disorder=="Absence") %>%
-  select(Sex, Antagonism, Negative_Affect, Extraversion) %>%
-  describe(group="Sex")
-```
-```R
-Description of F 
- Numeric 
-                mean median  var   sd valid.n
-Antagonism      1.71    1.6 1.05 1.02     941
-Negative_Affect 3.38    3.4 1.98 1.41     941
-Extraversion    3.43    3.5 2.21 1.49     941
-
-Description of M 
- Numeric 
-                mean median  var   sd valid.n
-Antagonism      2.37   2.20 1.56 1.25     245
-Negative_Affect 2.65   2.60 1.74 1.32     245
-Extraversion    3.27   3.25 2.30 1.52     245
-```
 
 
 

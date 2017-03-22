@@ -1,7 +1,7 @@
 \name{APAze}
 \alias{APAze}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{APA6-ready output for (g)lm , (g)lmer objects and Bayes Factors.
+\title{APA6-ready output for (g)lm , (g)lmer objects and Bayes Factors
 %%  ~~function to do ... ~~
 }
 \description{
@@ -9,7 +9,7 @@ APA6-ready output for mixed effects and non-mixed effects linear models.
 }
 \usage{
 APAze(fit,
-      method="boot",
+      method="Wald",
       nsim=1000,
       add.stars=TRUE,
       ddf=NULL)
@@ -28,6 +28,6 @@ require(neuropsychology)
 
 df <- personality
 
-fit <- lmer(Age ~ BMI + (1|Salary), data=df)
+fit <- lme4::lmer(Age ~ BMI + (1|Salary), data=df)
 APAze(fit, method="Wald")
 }

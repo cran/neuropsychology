@@ -1,7 +1,7 @@
 \name{cortable}
 \alias{cortable}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Correlation plot and table with significance stars
+\title{Correlation plot and table with significance stars.
 %%  ~~function to do ... ~~
 }
 \description{
@@ -9,21 +9,17 @@ Get a correlation plot and table with significance stars.
 }
 \usage{
 cortable(df,
+        returns="both",
         correction="holm",
         type="pearson",
-        returns="table",
-        print.result=TRUE,
-        plot.result=TRUE,
         iamaboringperson=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{df}{A dataframe.}
+  \item{returns}{"table", "plot" or "both". Returns a table, a ggplot plot or a list with both.}
   \item{correction}{"none", "holm" for holm-bonferroni (default), "fdr" for False Discovery Rate.}
-  \item{type}{"spearman" for Spearman's correlation and "pearson" for Pearson's.}
-  \item{returns}{Should the function return the table or the plot.}
-  \item{print.result}{Should it print the table in the console.}
-\item{plot.result}{Should it plot the result in the plotting tab.}
+  \item{type}{"pearson" for Pearson's, "partial" for partial correlations and "spearman" for Spearman's.}
 \item{iamaboringperson}{Are you?}
 }
 \details{

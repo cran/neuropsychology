@@ -1,15 +1,20 @@
 dprime <- function(n_hit, n_miss, n_fa, n_cr){
-  n_hit <- n_hit + 0.5
-  n_fa <- n_fa + 0.5
-  hit_rate <- n_hit/(n_hit + n_miss + 1)
-  fa_rate <- n_fa/(n_fa + n_cr + 1)
+  # Ratios
+  hit_rate <- n_hit/(n_hit + n_miss)
+  fa_rate <- n_fa/(n_fa + n_cr)
+  
+  
+  # Adjusted ratios
+  hit_rate_adjusted <- (n_hit+0.5)/((n_hit+0.5) + n_miss + 1)
+  fa_rate_adjusted <- (n_fa+0.5)/((n_fa+0.5) + n_cr + 1)
 
+  
   # dprime
-  dprime <- qnorm(hit_rate) - qnorm(fa_rate)
+  dprime <- qnorm(hit_rate_adjusted) - qnorm(fa_rate_adjusted)
 
   # beta
-  zhr <- qnorm(hit_rate)
-  zfar <- qnorm(fa_rate)
+  zhr <- qnorm(hit_rate_adjusted)
+  zfar <- qnorm(fa_rate_adjusted)
   beta <- exp(-zhr*zhr/2+zfar*zfar/2)
 
   # aprime
@@ -23,5 +28,8 @@ dprime <- function(n_hit, n_miss, n_fa, n_cr){
   # bppd
   bppd <- ((1-hit_rate)*(1-fa_rate)-hit_rate*fa_rate) / ((1-hit_rate)*(1-fa_rate)+hit_rate*fa_rate)
 
-  return(list(dprime=dprime, beta=beta, aprime=aprime, bppd=bppd))
+  # c
+  c <- -(qnorm(hit_rate_adjusted) + qnorm(fa_rate_adjusted))/2
+  
+  return(list(dprime=dprime, beta=beta, aprime=aprime, bppd=bppd, c=c))
 }
